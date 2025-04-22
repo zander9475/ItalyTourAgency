@@ -6,9 +6,13 @@ namespace ItalyTourAgency.Models;
 
 public class User : IdentityUser
 {
-    public string Name { get; set; } = null!;
+    public string FirstName { get; set; } = null!;
+
+    public string LastName { get; set; } = null!;
 
     public string? Address { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
