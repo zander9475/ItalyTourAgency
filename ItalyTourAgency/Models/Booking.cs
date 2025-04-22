@@ -7,11 +7,11 @@ public partial class Booking
 {
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; } = null!;
 
     public int TourInstanceId { get; set; }
 
-    public DateTime BookingDate { get; set; }
+    public DateTime BookingDate { get; set; } = DateTime.UtcNow;
 
     public int GroupSize { get; set; }
 
@@ -21,9 +21,9 @@ public partial class Booking
 
     public DateTime? PaymentDate { get; set; }
 
-    public string Status { get; set; } = null!;
+    public string Status { get; set; } = "Pending";
 
-    public bool PaymentProcessed { get; set; }
+    public bool PaymentProcessed { get; set; } = false;
 
     public virtual TourInstance TourInstance { get; set; } = null!;
 

@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace ItalyTourAgency.Models;
 
-public partial class User
+public class User : IdentityUser
 {
-    public int Id { get; set; }
-
     public string Name { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
-
-    public string? PhoneNum { get; set; }
 
     public string? Address { get; set; }
 

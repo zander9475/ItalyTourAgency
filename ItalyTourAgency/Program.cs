@@ -1,16 +1,25 @@
 using ItalyTourAgency.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<ItalyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ItalyConnectionString")));
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<ItalyContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<ItalyContext>();
-
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    // Create admin user...
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -25,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

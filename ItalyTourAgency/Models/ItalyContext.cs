@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ItalyTourAgency.Models;
 
-public partial class ItalyContext : DbContext
+public class ItalyContext : IdentityDbContext<User>
 {
-    public ItalyContext()
-    {
-    }
-
     public ItalyContext(DbContextOptions<ItalyContext> options)
         : base(options)
     {
@@ -27,12 +24,12 @@ public partial class ItalyContext : DbContext
 
     public virtual DbSet<TourLocation> TourLocations { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Booking>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Booking_pk");
@@ -195,33 +192,5 @@ public partial class ItalyContext : DbContext
                 .HasConstraintName("Tour_Location_Tour");
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("User_pk");
-
-            entity.ToTable("User");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Address)
-                .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("address");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("name");
-            entity.Property(e => e.PhoneNum)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("phone_num");
-        });
-
-        OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
