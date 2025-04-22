@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Tours
+namespace ItalyTourAgency.Pages.Public.Tours
 {
     public class CreateModel : PageModel
     {

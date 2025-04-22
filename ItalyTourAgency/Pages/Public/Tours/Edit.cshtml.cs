@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Tours
+namespace ItalyTourAgency.Pages.Public.Tours
 {
     public class EditModel : PageModel
     {

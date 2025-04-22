@@ -138,6 +138,9 @@ namespace ItalyTourAgency.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    // set the user role to Customer
+                    await _userManager.AddToRoleAsync(user, "Customer");
+
                     // Only send confirmation email if email is provided and required
                     if (_userManager.Options.SignIn.RequireConfirmedAccount && !string.IsNullOrEmpty(Input.Email))
                     {
