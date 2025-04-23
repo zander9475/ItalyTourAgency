@@ -1,10 +1,195 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Experience Authentic Italy";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero">
+    @* <!-- Video Carousel --> *@
+    <div class="video-carousel-container">
+        <div id="videoCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="~/TourAgencyVideos/colosseum.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="~/TourAgencyVideos/venice gondolas.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="~/TourAgencyVideos/florence duomo.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="~/TourAgencyVideos/cinque terre.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="~/TourAgencyVideos/trevi fountain.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="~/TourAgencyVideos/pisa.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-content text-center">
+        <h1>Discover <span class="text-warning">Italy</span> Like a Local</h1>
+        <p class="lead">Private tours with expert guides in Rome, Venice, Florence & beyond</p>
+        <div class="hero-buttons">
+            <a href="/Tours" class="btn btn-outline-light btn-lg ms-3">Browse Tours</a>
+            <a href="#featured" class="btn btn-outline-light btn-lg ms-3">Learn More</a>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Experience Italy like never before</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Service Card 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100 border-0 shadow">
+                        <div class="card-icon bg-primary text-white">
+                            <i class="fas fa-map-marked-alt fa-3x"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Guided Tours</h3>
+                            <p class="card-text">Expert-led tours through Italy's most iconic landmarks and hidden gems with skip-the-line access.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100 border-0 shadow">
+                        <div class="card-icon bg-warning text-white">
+                            <i class="fas fa-utensils fa-3x"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Food Experiences</h3>
+                            <p class="card-text">Authentic cooking classes, wine tastings, and gourmet tours with local chefs and sommeliers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100 border-0 shadow">
+                        <div class="card-icon bg-success text-white">
+                            <i class="fas fa-hotel fa-3x"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Transportation</h3>
+                            <p class="card-text">Curated selection of boutique hotels, agriturismos, and historic villas across Italy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more service cards as needed -->
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Featured Italian Experiences</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card tour-card h-100">
+                    <img src="https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg" class="card-img-top" alt="Rome">
+                    <div class="card-body">
+                        <h5 class="card-title">Rome Highlights</h5>
+                        <p class="card-text">Explore the ancient city's breathtaking architecture and wonders with our expert guides.</p>
+                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card tour-card h-100">
+                    <img src="https://images.pexels.com/photos/1050750/pexels-photo-1050750.jpeg" class="card-img-top" alt="Venice">
+                    <div class="card-body">
+                        <h5 class="card-title">Venice Canals</h5>
+                        <p class="card-text">Gondola rides and hidden gems of the floating city.</p>
+                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card tour-card h-100">
+                    <img src="https://images.pexels.com/photos/4179480/pexels-photo-4179480.jpeg" class="card-img-top" alt="Tuscany">
+                    <div class="card-body">
+                        <h5 class="card-title">Tuscan Delights</h5>
+                        <p class="card-text">Wine tasting, world class renaissance art, and scenic countryside views in Italy's heartland.</p>
+                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">What Our Travelers Say</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle mb-3" width="80" alt="Traveler">
+                            <p class="card-text">"The Rome tour was incredible! Our guide knew all the hidden spots."</p>
+                            <p class="text-muted">- Sarah, USA</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" class="rounded-circle mb-3" width="80" alt="Traveler">
+                            <p class="card-text">"Best way to experience authentic Italian culture. Highly recommend!"</p>
+                            <p class="text-muted">- Michael, UK</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle mb-3" width="80" alt="Traveler">
+                            <p class="card-text">"The food tours in Florence were worth every penny. Amazing!"</p>
+                            <p class="text-muted">- Jessica, Canada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h2>Ready for Your Italian Adventure?</h2>
+            <p class="lead mb-4">Sign up now and get 10% off your first tour!</p>
+            <a href="/Users/Create" class="btn btn-light btn-lg">Create Account</a>
+        </div>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <a href="#featured" class="hero-scroll-down">
+        <i class="fas fa-chevron-down"></i>
+    </a>
+</section>
+
+<!-- Rest of your page will go here -->

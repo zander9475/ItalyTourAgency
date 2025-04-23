@@ -29,13 +29,14 @@ public partial class ItalyContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:ItalyConnectionString");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Booking_pk");
+            entity.HasKey(e => e.Id).HasName("PK__Booking__3214EC27AE60922C");
 
             entity.ToTable("Booking");
 
@@ -77,7 +78,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<Location>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Location_pk");
+            entity.HasKey(e => e.Id).HasName("PK__Location__3214EC276202573E");
 
             entity.ToTable("Location");
 
@@ -98,7 +99,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Review_pk");
+            entity.HasKey(e => e.Id).HasName("PK__Review__3214EC27089EA844");
 
             entity.ToTable("Review");
 
@@ -127,7 +128,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<Tour>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Tour_pk");
+            entity.HasKey(e => e.Id).HasName("PK__Tour__3214EC277B443984");
 
             entity.ToTable("Tour");
 
@@ -153,7 +154,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<TourInstance>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Tour_Instance_pk");
+            entity.HasKey(e => e.Id).HasName("PK__Tour_Ins__3214EC27458F6D0A");
 
             entity.ToTable("Tour_Instance");
 
@@ -176,7 +177,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<TourLocation>(entity =>
         {
-            entity.HasKey(e => new { e.LocationId, e.TourId }).HasName("Tour_Location_pk");
+            entity.HasKey(e => new { e.LocationId, e.TourId });
 
             entity.ToTable("Tour_Location");
 
@@ -197,7 +198,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("User_pk");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC276130A4D7");
 
             entity.ToTable("User");
 
