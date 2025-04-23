@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Users
+namespace ItalyTourAgency.Pages.Public.Tours
 {
     public class CreateModel : PageModel
     {
@@ -24,7 +24,7 @@ namespace ItalyTourAgency.Pages.Users
         }
 
         [BindProperty]
-        public User User { get; set; } = default!;
+        public Tour Tour { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -34,7 +34,7 @@ namespace ItalyTourAgency.Pages.Users
                 return Page();
             }
 
-            _context.Users.Add(User);
+            _context.Tours.Add(Tour);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

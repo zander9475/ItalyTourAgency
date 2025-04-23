@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Tours
+namespace ItalyTourAgency.Pages.Public.Tours
 {
     public class DetailsModel : PageModel
     {

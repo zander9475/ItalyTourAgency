@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ItalyTourAgency.Models;
 
-public partial class ItalyContext : DbContext
+public class ItalyContext : IdentityDbContext<User>
 {
-    public ItalyContext()
-    {
-    }
-
     public ItalyContext(DbContextOptions<ItalyContext> options)
         : base(options)
     {
@@ -27,13 +25,12 @@ public partial class ItalyContext : DbContext
 
     public virtual DbSet<TourLocation> TourLocations { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:ItalyConnectionString");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Booking>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Booking__3214EC27AE60922C");
@@ -198,7 +195,7 @@ public partial class ItalyContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC276130A4D7");
+            entity.HasKey(e => e.Id).HasName("User_pk");
 
             entity.ToTable("User");
 
@@ -223,6 +220,4 @@ public partial class ItalyContext : DbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
