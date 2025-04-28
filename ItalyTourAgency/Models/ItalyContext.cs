@@ -192,32 +192,5 @@ public class ItalyContext : IdentityDbContext<User>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Tour_Location_Tour");
         });
-
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("User_pk");
-
-            entity.ToTable("User");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Address)
-                .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("address");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("name");
-            entity.Property(e => e.PhoneNum)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("phone_num");
-        });
-
-        OnModelCreatingPartial(modelBuilder);
     }
 }

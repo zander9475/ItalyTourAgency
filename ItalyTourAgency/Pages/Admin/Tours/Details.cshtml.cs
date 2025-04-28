@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Public.Tours
+namespace ItalyTourAgency.Pages.Admin.Tours
 {
     public class DetailsModel : PageModel
     {
@@ -16,9 +16,12 @@ namespace ItalyTourAgency.Pages.Public.Tours
         public DetailsModel(ItalyTourAgency.Models.ItalyContext context)
         {
             _context = context;
+            TourInstances = new List<TourInstance>();
         }
 
+        [BindProperty]
         public Tour Tour { get; set; } = default!;
+        public List<TourInstance> TourInstances { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,16 +30,19 @@ namespace ItalyTourAgency.Pages.Public.Tours
                 return NotFound();
             }
 
-            var tour = await _context.Tours.FirstOrDefaultAsync(m => m.Id == id);
+            var tour = await _context.Tours
+                .Include(t => t.TourInstances)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (tour is not null)
+            if (tour == null)
             {
-                Tour = tour;
-
-                return Page();
+                return NotFound();
             }
 
-            return NotFound();
+            Tour = tour;
+            TourInstances = tour.TourInstances.ToList();
+
+            return Page();
         }
     }
 }

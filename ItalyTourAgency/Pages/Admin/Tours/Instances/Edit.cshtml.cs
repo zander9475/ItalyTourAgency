@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Public.Tours
+namespace ItalyTourAgency.Pages_Admin_Tours_Instances
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace ItalyTourAgency.Pages.Public.Tours
         }
 
         [BindProperty]
-        public Tour Tour { get; set; } = default!;
+        public TourInstance TourInstance { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,12 +29,13 @@ namespace ItalyTourAgency.Pages.Public.Tours
                 return NotFound();
             }
 
-            var tour =  await _context.Tours.FirstOrDefaultAsync(m => m.Id == id);
-            if (tour == null)
+            var tourinstance =  await _context.TourInstances.FirstOrDefaultAsync(m => m.Id == id);
+            if (tourinstance == null)
             {
                 return NotFound();
             }
-            Tour = tour;
+            TourInstance = tourinstance;
+           ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Id");
             return Page();
         }
 
@@ -47,7 +48,7 @@ namespace ItalyTourAgency.Pages.Public.Tours
                 return Page();
             }
 
-            _context.Attach(Tour).State = EntityState.Modified;
+            _context.Attach(TourInstance).State = EntityState.Modified;
 
             try
             {
@@ -55,7 +56,7 @@ namespace ItalyTourAgency.Pages.Public.Tours
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TourExists(Tour.Id))
+                if (!TourInstanceExists(TourInstance.Id))
                 {
                     return NotFound();
                 }
@@ -68,9 +69,9 @@ namespace ItalyTourAgency.Pages.Public.Tours
             return RedirectToPage("./Index");
         }
 
-        private bool TourExists(int id)
+        private bool TourInstanceExists(int id)
         {
-            return _context.Tours.Any(e => e.Id == id);
+            return _context.TourInstances.Any(e => e.Id == id);
         }
     }
 }

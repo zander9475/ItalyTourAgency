@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Public.Tours
+namespace ItalyTourAgency.Pages_Admin_Tours_Instances
 {
     public class CreateModel : PageModel
     {
@@ -20,11 +20,12 @@ namespace ItalyTourAgency.Pages.Public.Tours
 
         public IActionResult OnGet()
         {
+        ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Tour Tour { get; set; } = default!;
+        public TourInstance TourInstance { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -34,7 +35,7 @@ namespace ItalyTourAgency.Pages.Public.Tours
                 return Page();
             }
 
-            _context.Tours.Add(Tour);
+            _context.TourInstances.Add(TourInstance);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
