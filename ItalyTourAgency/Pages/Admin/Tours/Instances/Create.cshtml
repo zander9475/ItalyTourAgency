@@ -1,43 +1,38 @@
 @page
 @model ItalyTourAgency.Pages_Admin_Tours_Instances.CreateModel
 
-        @{
-        Layout = null;
-        }
+    @{
+    Layout = null;
+    }
         
-        <!DOCTYPE html>
+    <!DOCTYPE html>
         
-        <html>
-        <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Create</title>
-        </head>
-        <body>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    </head>
+    <body>
         
     <h4>TourInstance</h4>
     <hr />
     <div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TourInstance.TourId" class="control-label"></label>
-                <select asp-for="TourInstance.TourId" class ="form-control" asp-items="ViewBag.TourId"></select>
+                <select asp-for="TourInstance.TourId" class="form-control" asp-items="ViewBag.TourId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TourInstance.StartDate" class="control-label"></label>
-                <input asp-for="TourInstance.StartDate" class="form-control" />
+                <input asp-for="TourInstance.StartDate" class="form-control" type="date" />
                 <span asp-validation-for="TourInstance.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TourInstance.EndDate" class="control-label"></label>
-                <input asp-for="TourInstance.EndDate" class="form-control" />
+                <input asp-for="TourInstance.EndDate" class="form-control" type="date" />
                 <span asp-validation-for="TourInstance.EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TourInstance.BookedSlots" class="control-label"></label>
-                <input asp-for="TourInstance.BookedSlots" class="form-control" />
-                <span asp-validation-for="TourInstance.BookedSlots" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

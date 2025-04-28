@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace ItalyTourAgency.Models;
@@ -13,11 +14,12 @@ public partial class TourInstance
 
     public DateOnly EndDate { get; set; }
 
-    public int BookedSlots { get; set; }
+    public int BookedSlots { get; set; } = 0;
 
-    public string Status { get; set; } = null!;
+    public string Status { get; set; } = "Open";
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
+    [ValidateNever]
     public virtual Tour Tour { get; set; } = null!;
 }
