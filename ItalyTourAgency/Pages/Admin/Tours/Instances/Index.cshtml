@@ -1,0 +1,68 @@
+@page
+@model ItalyTourAgency.Pages_Admin_Tours_Instances.IndexModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TourInstance[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourInstance[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourInstance[0].BookedSlots)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourInstance[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TourInstance[0].Tour)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TourInstance) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookedSlots)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tour.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

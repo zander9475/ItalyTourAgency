@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ItalyTourAgency.Models;
 
-namespace ItalyTourAgency.Pages.Public.Tours
+namespace ItalyTourAgency.Pages_Admin_Tours_Instances
 {
     public class DeleteModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace ItalyTourAgency.Pages.Public.Tours
         }
 
         [BindProperty]
-        public Tour Tour { get; set; } = default!;
+        public TourInstance TourInstance { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,11 +28,11 @@ namespace ItalyTourAgency.Pages.Public.Tours
                 return NotFound();
             }
 
-            var tour = await _context.Tours.FirstOrDefaultAsync(m => m.Id == id);
+            var tourinstance = await _context.TourInstances.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (tour is not null)
+            if (tourinstance is not null)
             {
-                Tour = tour;
+                TourInstance = tourinstance;
 
                 return Page();
             }
@@ -47,11 +47,11 @@ namespace ItalyTourAgency.Pages.Public.Tours
                 return NotFound();
             }
 
-            var tour = await _context.Tours.FindAsync(id);
-            if (tour != null)
+            var tourinstance = await _context.TourInstances.FindAsync(id);
+            if (tourinstance != null)
             {
-                Tour = tour;
-                _context.Tours.Remove(Tour);
+                TourInstance = tourinstance;
+                _context.TourInstances.Remove(TourInstance);
                 await _context.SaveChangesAsync();
             }
 
