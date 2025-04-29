@@ -16,7 +16,7 @@ public partial class TourInstance
 
     public int BookedSlots { get; set; } = 0;
 
-    public string Status { get; set; } = "Open";
+    public string Status { get; set; } = null!;
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
