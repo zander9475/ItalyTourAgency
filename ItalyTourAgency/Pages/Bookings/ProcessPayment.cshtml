@@ -1,0 +1,74 @@
+﻿@page
+@model ItalyTourAgency.Pages.Bookings.ProcessPaymentModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+
+<h4>Payment Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" id="payment-form">
+            <input type="hidden" id="stripe-token" name="StripeToken" />
+            <!-- Display Booking Summary -->
+            <div class="alert alert-info">
+                <h5>Booking Summary</h5>
+                <p>Tour Dates: @Model.TourDates</p>
+                <p>Group Size: @Model.GroupSize</p>
+                <p>Total Price: @Model.TotalPrice.ToString("C")</p>
+            </div>
+
+            <!-- Card Details (Stripe Elements) -->
+            <div class="form-group">
+                <label class="control-label">Card Details:</label>
+                <div id="card-element" class="form-control"></div>
+                <div id="card-errors" role="alert" class="text-danger"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Confirm Booking</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Remove the CSDA script -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('pk_test_51RJTA9Fk4dcR1IVJovYjmtw8PMW6MLErtEtktAv1p7fCuoNypKeFgJhKbsdJwDZziLRSeMfMdsZpPM1YZpEHhjJL00xKI9YAOz');
+        const elements = stripe.elements();
+        const card = elements.create('card');
+        card.mount('#card-element');
+
+        // Error handling
+        card.addEventListener('change', ({error}) => {
+            const errorElement = document.getElementById('card-errors');
+            errorElement.textContent = error?.message || '';
+        });
+
+        // Form submission
+        const form = document.getElementById('payment-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            // Create Stripe token
+            const {token, error} = await stripe.createToken(card);
+            
+            if (error) {
+                // Show error to user
+                document.getElementById('card-errors').textContent = error.message;
+            } else {
+                // Set existing hidden input value
+                document.getElementById('stripe-token').value = token.id;
+                form.submit();
+            }
+        });
+    </script>
+}

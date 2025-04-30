@@ -1,0 +1,87 @@
+@page
+@model ItalyTourAgency.Pages_Bookings.EditModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Booking.Id" />
+            <div class="form-group">
+                
+                <label asp-for="Booking.UserId" class="control-label"></label>
+                <select asp-for="Booking.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="Booking.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Booking.TourInstanceId" class="control-label"></label>
+                <select asp-for="Booking.TourInstanceId" class="form-control" asp-items="ViewBag.TourInstanceId"></select>
+                <span asp-validation-for="Booking.TourInstanceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Booking.BookingDate" class="control-label"></label>
+                <input asp-for="Booking.BookingDate" class="form-control" />
+                <span asp-validation-for="Booking.BookingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Booking.GroupSize" class="control-label"></label>
+                <input asp-for="Booking.GroupSize" class="form-control" />
+                <span asp-validation-for="Booking.GroupSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Booking.TotalPrice" class="control-label"></label>
+                <input asp-for="Booking.TotalPrice" class="form-control" />
+                <span asp-validation-for="Booking.TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Booking.PaymentDate" class="control-label"></label>
+                <input asp-for="Booking.PaymentDate" class="form-control" />
+                <span asp-validation-for="Booking.PaymentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Booking.Status" class="control-label"></label>
+                <input asp-for="Booking.Status" class="form-control" />
+                <span asp-validation-for="Booking.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Booking.PaymentProcessed" /> @Html.DisplayNameFor(model => model.Booking.PaymentProcessed)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>

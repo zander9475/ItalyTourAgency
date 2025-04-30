@@ -14,9 +14,16 @@ public partial class TourInstance
 
     public DateOnly EndDate { get; set; }
 
+    public int MaxCapacity { get; set; }
+
     public int BookedSlots { get; set; } = 0;
 
     public string Status { get; set; } = null!;
+
+    public void UpdateStatus()
+    {
+        Status = BookedSlots >= MaxCapacity ? "Full" : "Open";
+    }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
