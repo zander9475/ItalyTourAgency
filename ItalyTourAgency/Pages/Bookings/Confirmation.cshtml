@@ -1,7 +1,9 @@
 ﻿@page "{id:int}"
 @model ItalyTourAgency.Pages.Bookings.ConfirmationModel
 
-<h2>Booking Confirmed!</h2>
+<div>
+    <h3>Thank you for booking with us, @Model.Booking.User.FirstName!</h3>
+</div>
 <p>Your booking reference: @Model.Booking.Id</p>
 @if (Model.Booking?.TourInstance?.Tour != null)
 {

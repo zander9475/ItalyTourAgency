@@ -26,7 +26,8 @@ namespace ItalyTourAgency.Pages.Bookings
 
             Booking = await _context.Bookings
                 .Include(b => b.TourInstance)
-                 .ThenInclude(ti => ti.Tour)
+                    .ThenInclude(ti => ti.Tour)
+                 .Include(b => b.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Booking == null)
