@@ -39,20 +39,19 @@
                                 <a class="nav-link text-dark" asp-page="/Admin/Tours/Index">Tours</a>
                             </li>
                         }
-                        <!-- User locations link-->
+                        @* Locations page not shown for now
 						@if (!User.IsInRole("Admin"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-page="/Locations/Index">Locations</a>
 							</li>
 						}
-                        <!-- Admin locations link-->
 						@if (User.IsInRole("Admin"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-page="/Admin/Locations/Index">Locations</a>
 							</li>
-						}
+						} *@
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
