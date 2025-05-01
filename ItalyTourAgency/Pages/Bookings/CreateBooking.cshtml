@@ -1,0 +1,57 @@
+@page "/Bookings/CreateBooking"
+@model ItalyTourAgency.Pages.Bookings.CreateBookingModel
+
+        @{
+        ViewData["Title"] = "CreateBooking";
+        }
+        
+        <!DOCTYPE html>
+        
+        <html>
+        <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Create</title>
+        </head>
+        <body>
+        
+    <h4>Create Booking</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+        <form method="post">
+			<input type="hidden" asp-for="Booking.TourId" value="@Model.Booking.TourId" />
+            <input type="hidden" asp-for="Booking.UserId" value="@Model.Booking.UserId"/>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Tour Instance Selection -->
+            <div class="form-group">
+                <label class="control-label">Choose Tour Dates:</label>
+                <select asp-for="Booking.TourInstanceId" 
+                        class="form-control"
+                        asp-items="ViewBag.TourInstanceId">
+                    <option value="">-- Select Dates --</option>
+                </select>
+                <span asp-validation-for="Booking.TourInstanceId" class="text-danger"></span>
+            </div>
+            <!-- Group Size -->
+            <div class="form-group">
+                <label asp-for="Booking.GroupSize" class="control-label"></label>
+                <input asp-for="Booking.GroupSize" class="form-control" min="1" />
+                <span asp-validation-for="Booking.GroupSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Continue to Payment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>

@@ -1,0 +1,14 @@
+﻿@page "{id:int}"
+@model ItalyTourAgency.Pages.Bookings.ConfirmationModel
+
+<div>
+    <h3>Thank you for booking with us, @Model.Booking.User.FirstName!</h3>
+</div>
+<p>Your booking reference: @Model.Booking.Id</p>
+@if (Model.Booking?.TourInstance?.Tour != null)
+{
+    <p>Tour Dates: @Model.Booking.TourInstance.StartDate.ToShortDateString() - @Model.Booking.TourInstance.EndDate.ToShortDateString()</p>
+}
+<p>Group Size: @Model.Booking.GroupSize</p>
+<p>Total Price: @Model.Booking.TotalPrice.ToString("C")</p>
+<p>Payment Status: @Model.Booking.Status</p>

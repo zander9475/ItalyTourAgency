@@ -21,6 +21,8 @@ public partial class Tour
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
     public virtual ICollection<TourInstance> TourInstances { get; set; } = new List<TourInstance>();
 
     public virtual ICollection<TourLocation> TourLocations { get; set; } = new List<TourLocation>();

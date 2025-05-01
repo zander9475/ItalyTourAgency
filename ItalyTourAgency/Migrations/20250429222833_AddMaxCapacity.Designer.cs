@@ -4,6 +4,7 @@ using ItalyTourAgency.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ItalyTourAgency.Migrations
 {
     [DbContext(typeof(ItalyContext))]
-    partial class ItalyContextModelSnapshot : ModelSnapshot
+    [Migration("20250429222833_AddMaxCapacity")]
+    partial class AddMaxCapacity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +39,12 @@ namespace ItalyTourAgency.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("booking_date")
                         .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("CardNumber")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("card_number");
 
                     b.Property<int>("GroupSize")
                         .HasColumnType("int")

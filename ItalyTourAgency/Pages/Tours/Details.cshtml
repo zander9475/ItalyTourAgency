@@ -1,8 +1,8 @@
-@page
+@page "{id}"
 @model ItalyTourAgency.Pages_Tours.DetailsModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Details";
 }
 
 <!DOCTYPE html>
@@ -45,6 +45,9 @@
     </dl>
 </div>
 <div>
+    <a asp-page="/Bookings/CreateBooking" asp-route-tourId="@Model.Tour.Id" class="btn btn-primary">
+        Book This Tour
+    </a>
     <a asp-page="./Index">Back to List</a>
 </div>
 </body>

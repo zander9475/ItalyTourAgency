@@ -42,10 +42,6 @@ public class ItalyContext : IdentityDbContext<User>
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("booking_date");
-            entity.Property(e => e.CardNumber)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("card_number");
             entity.Property(e => e.GroupSize).HasColumnName("group_size");
             entity.Property(e => e.PaymentDate)
                 .HasColumnType("datetime")
@@ -60,12 +56,18 @@ public class ItalyContext : IdentityDbContext<User>
                 .HasColumnType("numeric(18, 0)")
                 .HasColumnName("total_price");
             entity.Property(e => e.TourInstanceId).HasColumnName("tour_instance_id");
+            entity.Property(e => e.TourId).HasColumnName("tour_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.TourInstance).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.TourInstanceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Booking_Tour_Instance");
+
+            entity.HasOne(d => d.Tour).WithMany(p => p.Bookings)
+                .HasForeignKey(d => d.TourId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Booking_Tour");
 
             entity.HasOne(d => d.User).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.UserId)
