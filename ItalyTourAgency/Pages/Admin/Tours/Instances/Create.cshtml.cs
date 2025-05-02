@@ -22,7 +22,7 @@ namespace ItalyTourAgency.Pages_Admin_Tours_Instances
 
         public IActionResult OnGet()
         {
-            ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Id");
+            ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name");
 
             return Page();
         }
@@ -48,7 +48,7 @@ namespace ItalyTourAgency.Pages_Admin_Tours_Instances
                         Console.WriteLine($"ModelState Error - Key: {key}, Error: {error.ErrorMessage}");
                     }
                 }
-                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Id");
+                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name");
                 return Page();
             }
 
@@ -57,7 +57,7 @@ namespace ItalyTourAgency.Pages_Admin_Tours_Instances
             if (tour == null)
             {
                 ModelState.AddModelError("TourInstance.TourId", "Selected Tour does not exist.");
-                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Id");
+                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name");
                 return Page();
             }
 
