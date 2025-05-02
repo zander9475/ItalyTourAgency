@@ -49,7 +49,7 @@
         <p class="lead">Private tours with expert guides in Rome, Venice, Florence & beyond</p>
         <div class="hero-buttons">
             <a href="/Tours" class="btn btn-outline-light btn-lg ms-3">Browse Tours</a>
-            <a href="#featured" class="btn btn-outline-light btn-lg ms-3">Learn More</a>
+            
         </div>
     </div>
 
@@ -95,8 +95,8 @@
                             <i class="fas fa-hotel fa-3x"></i>
                         </div>
                         <div class="card-body text-center">
-                            <h3 class="card-title">Transportation</h3>
-                            <p class="card-text">Curated selection of boutique hotels, agriturismos, and historic villas across Italy.</p>
+                            <h3 class="card-title">Planned Itineraries</h3>
+                            <p class="card-text">Consult with one of our experts about planning your dream vacation.</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Puglian Summer</h5>
                         <p class="card-text">Submerse yourself in the underrated region of mediterranean bliss.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        <a href="/Tours/Details/3" class="btn btn-outline-primary">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Italy's Best</h5>
                         <p class="card-text">Discover the most stapled cities Italian cities in one trip.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        <a href="/Tours/Details/2" class="btn btn-outline-primary">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Tuscan Delights</h5>
                         <p class="card-text">Wine tasting, world class renaissance art, and scenic countryside views in Italy's heartland.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        <a href="/Tours/Details/1" class="btn btn-outline-primary">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -149,9 +149,9 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle mb-3" width="80" alt="Traveler">
+                            <img src="~/Images/lizzie.jpg" class="rounded-circle mb-3" width="80" alt="Traveler">
                             <p class="card-text">"The Rome tour was incredible! Our guide knew all the hidden spots."</p>
-                            <p class="text-muted">- Sarah, USA</p>
+                            <p class="text-muted">- Lizzie, Colombia</p>
                         </div>
                     </div>
                 </div>
@@ -178,18 +178,59 @@
     </div>
 
     <!-- Call to Action -->
-    <div class="bg-primary text-white py-5">
-        <div class="container text-center">
-            <h2>Ready for Your Italian Adventure?</h2>
-            <p class="lead mb-4">Sign up now and get 10% off your first tour!</p>
-            <a href="/Identity/Account/Register" class="btn btn-light btn-lg">Create Account</a>
+    <div class="cta-section py-5 position-relative overflow-hidden">
+        <div class="container text-center position-relative z-index-1">
+            <h2 class="display-4 fw-bold mb-3 text-white">Ready for Your Italian Adventure?</h2>
+            <p class="lead mb-4 text-white-75">Sign up now and get <span class="text-warning fw-bold">10% off</span> your first tour!</p>
+            <a href="/Identity/Account/Register" class="btn btn-light btn-lg px-4 py-3 rounded-pill shadow-sm">
+                <i class="fas fa-arrow-right me-2"></i>Create Account
+            </a>
+        </div>
+
+        <!-- Decorative elements -->
+        <div class="position-absolute top-0 start-0 w-100 h-100">
+            <div class="cta-overlay"></div>
         </div>
     </div>
 
-    <!-- Scroll Down Indicator -->
-    <a href="#featured" class="hero-scroll-down">
-        <i class="fas fa-chevron-down"></i>
-    </a>
-</section>
+    <style>
+        .cta-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            position: relative;
+            overflow: hidden;
+        }
 
-<!-- Rest of your page will go here -->
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1498307833015-e7b400441eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+
+        .z-index-1 {
+            z-index: 1;
+        }
+
+        .cta-section .btn-light {
+            background-color: rgba(255,255,255,0.9);
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+            .cta-section .btn-light:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                background-color: white;
+            }
+
+        .text-white-75 {
+            color: rgba(255,255,255,0.85);
+        }
+    </style>
+</section>
