@@ -12,6 +12,8 @@
 
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
 
+            <!-- Hidden input to preserve return url (for users coming from "Book This Tour"-->
+            <input type="hidden" asp-for="ReturnUrl" />
             <div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.FirstName">First Name</label>

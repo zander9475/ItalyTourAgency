@@ -1,5 +1,10 @@
 @page "{id}"
 @model ItalyTourAgency.Pages_Tours.DetailsModel
+@using Microsoft.AspNetCore.Identity
+@using ItalyTourAgency.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Details";
@@ -44,11 +49,24 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="/Bookings/CreateBooking" asp-route-tourId="@Model.Tour.Id" class="btn btn-primary">
-        Book This Tour
-    </a>
-    <a asp-page="./Index">Back to List</a>
-</div>
+    <div>
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))
+        {
+			Console.WriteLine("User is authenticated and is a Customer");
+            <a asp-page="/Bookings/CreateBooking" asp-route-tourId="@Model.Tour.Id" class="btn btn-primary">
+                Book This Tour
+            </a>
+        }
+        else
+            {
+            <a asp-area="Identity"
+               asp-page="/Account/Login"
+               asp-route-returnUrl="@Url.Page("/Bookings/CreateBooking", new { tourId = Model.Tour.Id })"
+               class="btn btn-primary">
+                Book This Tour
+            </a>
+            }
+            <a asp-page="./Index">Back to List</a>
+    </div>
 </body>
 </html>
