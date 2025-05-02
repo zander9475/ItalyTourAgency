@@ -1,154 +1,32 @@
-@* @page *@
-@* @model ItalyTourAgency.Pages.Admin.Tours.IndexModel *@
-
-@* @{ *@
-@*     ViewData["Title"] = "Tours"; *@
-@* } *@
-
-@* <h1>Tours</h1> *@
-
-@* <table class="table"> *@
-@*     <thead> *@
-@*         <tr> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Tour[0].Name) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Tour[0].Description) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Tour[0].Duration) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Tour[0].Price) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Tour[0].Capacity) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Tour[0].Status) *@
-@*             </th> *@
-@*             <th></th> *@
-@*         </tr> *@
-@*     </thead> *@
-@*     <tbody> *@
-@*         @foreach (var item in Model.Tour) *@
-@*         { *@
-@*             <tr> *@
-@*                 <td> *@
-@*                     @Html.DisplayFor(modelItem => item.Name) *@
-@*                 </td> *@
-@*                 <td> *@
-@*                     @Html.DisplayFor(modelItem => item.Description) *@
-@*                 </td> *@
-@*                 <td> *@
-@*                     @Html.DisplayFor(modelItem => item.Duration) *@
-@*                 </td> *@
-@*                 <td> *@
-@*                     @Html.DisplayFor(modelItem => item.Price) *@
-@*                 </td> *@
-@*                 <td> *@
-@*                     @Html.DisplayFor(modelItem => item.Capacity) *@
-@*                 </td> *@
-@*                 <td> *@
-@*                     @Html.DisplayFor(modelItem => item.Status) *@
-@*                 </td> *@
-@*                 <td> *@
-@*                     <a asp-page="./Details" asp-route-id="@item.Id">Details</a> *@
-@*                 </td> *@
-@*             </tr> *@
-@*         } *@
-@*     </tbody> *@
-@* </table> *@
-
 @page
 @model ItalyTourAgency.Pages.Admin.Tours.IndexModel
+
 @{
     ViewData["Title"] = "Tours";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="display-5 text-primary">
-            <i class="fas fa-map-marked-alt me-2"></i> Our Tours
-        </h1>
-        <a asp-page="Create" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i> Create New Tour
-        </a>
-    </div>
+<div class="container">
+    <h1 class="text-center mb-5">Discover Italy With Us</h1>
 
-    <!-- Card Layout -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="row">
         @foreach (var item in Model.Tour)
         {
-            <div class="col">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">@item.Name</h5>
-                        <span class="badge @(item.Status == "Active" ? "bg-success" : "bg-secondary") float-end">
-                            @item.Status
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@item.Description</p>
-                        <hr>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <small class="text-muted">Duration</small>
-                                <p class="mb-0 fw-bold">@item.Duration days</p>
-                            </div>
-                            <div>
-                                <small class="text-muted">Price</small>
-                                <p class="mb-0 fw-bold">€@item.Price</p>
-                            </div>
-                            <div>
-                                <small class="text-muted">Capacity</small>
-                                <p class="mb-0 fw-bold">@item.Capacity</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-white border-0">
-                        <div class="d-flex justify-content-between">
-                            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                            <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </div>
-                    </div>
+            
+            var imagePath = "/images/default-tour.jpg"; // Default image
+
+            if (item.Name.Contains("Tuscan") || item.Name.Contains("Florence"))
+            {
+                imagePath = "~/images/firenze view.jpg";
+            }
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 tour-card">
+                    <img src="@Url.Content(imagePath)" class="card-img-top" alt="@item.Name tour">
                 </div>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                </td>
             </div>
         }
     </div>
-    <div class="alert alert-success mt-3">
-        <i class="fas fa-check-circle me-2"></i>
-        Bootstrap is working if you see this green alert!
-    </div>
 </div>
-
-@section Styles {
-    <style>
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-            .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-            }
-
-        .card-header {
-            padding: 1rem 1.25rem;
-        }
-
-        .card-body {
-            padding: 1.25rem;
-        }
-    </style>
-}
