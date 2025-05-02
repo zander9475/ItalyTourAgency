@@ -27,7 +27,10 @@ namespace ItalyTourAgency.Pages_Bookings
                 return NotFound();
             }
 
-            var booking = await _context.Bookings.FirstOrDefaultAsync(m => m.Id == id);
+            var booking = await _context.Bookings
+                .Include(b => b.TourInstance)
+                .Include(b => b.Tour)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (booking is not null)
             {

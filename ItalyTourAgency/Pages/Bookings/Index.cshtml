@@ -2,7 +2,7 @@
 @model ItalyTourAgency.Pages_Bookings.IndexModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
 }
 
 <!DOCTYPE html>
@@ -13,6 +13,8 @@
     <title>Index</title>
 </head>
 <body>
+
+<h1>Bookings</h1>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
@@ -20,7 +22,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Booking[0].BookingDate)
+				Tour Dates
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Booking[0].GroupSize)
@@ -29,28 +31,18 @@
                 @Html.DisplayNameFor(model => model.Booking[0].TotalPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Booking[0].PaymentDate)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Booking[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Booking[0].PaymentProcessed)
+                Tour Name
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].TourInstance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].User)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Booking) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BookingDate)
+                @item.TourInstance.StartDate.ToString("yyyy-MM-dd") to @item.TourInstance.EndDate.ToString("yyyy-MM-dd")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GroupSize)
@@ -59,24 +51,13 @@
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PaymentDate)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PaymentProcessed)
+                @Html.DisplayFor(modelItem => item.TourInstance.Tour.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TourInstance.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }

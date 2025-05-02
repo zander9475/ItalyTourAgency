@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ItalyTourAgency.Models;
 
@@ -15,20 +16,25 @@ public partial class Booking
 
     public int TourId { get; set; }
 
+    [Display(Name = "Booking Date")]
     public DateTime BookingDate { get; set; } = DateTime.UtcNow;
 
+    [Display(Name = "Group Size")]
     public int GroupSize { get; set; }
 
     [BindNever]
+    [Display(Name = "Total Price")]
     public decimal TotalPrice { get; set; }
 
     [BindNever]
     public DateTime? PaymentDate { get; set; }
 
     [BindNever]
+    [Display(Name = "Booking Status")]
     public string Status { get; set; } = "Pending";
 
     [BindNever]
+    [Display(Name = "Payment Status")]
     public bool PaymentProcessed { get; set; } = false;
 
     [ValidateNever]

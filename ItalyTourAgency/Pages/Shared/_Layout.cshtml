@@ -41,8 +41,15 @@
                                 <a class="nav-link text-dark" asp-page="/Admin/Tours/Index">Tours</a>
                             </li>
                         }
+                        <!-- User bookings link-->
+						@if (User.IsInRole("Customer"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-page="/Bookings/Index">Bookings</a>
+							</li>
+						}
                         @* Locations page not shown for now
-						@if (!User.IsInRole("Admin"))
+						@if (!User.IsInRole("Customer"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-page="/Locations/Index">Locations</a>

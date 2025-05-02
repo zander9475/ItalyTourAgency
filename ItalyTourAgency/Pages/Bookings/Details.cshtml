@@ -2,7 +2,7 @@
 @model ItalyTourAgency.Pages_Bookings.DetailsModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Details";
 }
 
 <!DOCTYPE html>
@@ -19,11 +19,19 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.BookingDate)
+            Tour Dates
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Booking.BookingDate)
-        </dd>
+            <dd class="col-sm-10">
+                @if (Model.Booking?.TourInstance != null) // Check if TourInstance exists
+                {
+                    @($"{Model.Booking.TourInstance.StartDate.ToString("yyyy-MM-dd")} to {Model.Booking.TourInstance.EndDate.ToString("yyyy-MM-dd")}")
+                }
+                else
+                {
+                    @("Date range not available")
+                    // Or Html.Raw("&nbsp;") for empty
+                }
+            </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Booking.GroupSize)
         </dt>
@@ -37,34 +45,16 @@
             @Html.DisplayFor(model => model.Booking.TotalPrice)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.PaymentDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Booking.PaymentDate)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Booking.Status)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Booking.Status)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.PaymentProcessed)
+            Tour Name
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Booking.PaymentProcessed)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.TourInstance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Booking.TourInstance.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.User)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Booking.User.Id)
+            @Html.DisplayFor(model => model.Booking.Tour.Name)
         </dd>
     </dl>
 </div>
