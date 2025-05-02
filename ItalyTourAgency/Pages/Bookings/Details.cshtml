@@ -1,5 +1,5 @@
 @page
-@model ItalyTourAgency.Pages_Bookings.DetailsModel
+@model ItalyTourAgency.Pages.Bookings.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -59,8 +59,27 @@
     </dl>
 </div>
 <div>
+    @* Define conditions for showing the button *@
+    @{
+        bool canCancelStatus = (Model.Booking.Status == "Confirmed" || Model.Booking.Status == "Pending"); // Check status
+        bool canCancelDate = Model.Booking.TourInstance != null &&
+                             Model.Booking.TourInstance.StartDate > DateOnly.FromDateTime(DateTime.Now).AddDays(7); // Check date (> 7 days away)
+    }
+
+    @if (canCancelStatus && canCancelDate) // Combine checks
+    {
+        <form asp-page-handler="Cancel" method="post" style="display: inline;">
+            <input type="hidden" name="id" value="@Model.Booking.Id" />
+            <button type="submit" class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to cancel this booking?\n(Must be more than 7 days before start date)');">
+                Cancel Booking
+            </button>
+        </form>
+        <span class="mx-1">|</span> @* Separator *@
+    }
+
     <a asp-page="./Edit" asp-route-id="@Model.Booking.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to My Bookings</a>
 </div>
 </body>
 </html>
