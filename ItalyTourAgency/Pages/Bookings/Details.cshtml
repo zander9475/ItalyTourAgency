@@ -59,6 +59,7 @@
     </dl>
 </div>
 <div>
+    <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@Model.Booking.Id">Edit Booking</a>
     @* Define conditions for showing the button *@
     @{
         bool canCancelStatus = (Model.Booking.Status == "Confirmed" || Model.Booking.Status == "Pending"); // Check status
@@ -77,8 +78,6 @@
         </form>
         <span class="mx-1">|</span> @* Separator *@
     }
-
-    <a asp-page="./Edit" asp-route-id="@Model.Booking.Id">Edit</a> |
     <a asp-page="./Index">Back to My Bookings</a>
 </div>
 </body>
