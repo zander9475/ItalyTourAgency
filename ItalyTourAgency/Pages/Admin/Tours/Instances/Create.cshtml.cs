@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using ItalyTourAgency.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ItalyTourAgency.Pages_Admin_Tours_Instances
 {
@@ -33,36 +34,41 @@ namespace ItalyTourAgency.Pages_Admin_Tours_Instances
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            // Remove TourInstance.MaxCapacity from the ModelState check initially
+            // because we will set it manually. We still want to validate other fields.
+            ModelState.Remove($"{nameof(TourInstance)}.{nameof(TourInstance.MaxCapacity)}");
+
+            // Initialize default values BEFORE validating the rest of the model
             TourInstance.BookedSlots = 0;
             TourInstance.Status ??= "Open";
 
-            // Debug: Log ModelState errors
             if (!ModelState.IsValid)
             {
-                foreach (var entry in ModelState)
-                {
-                    var key = entry.Key;
-                    var errors = entry.Value.Errors;
-                    foreach (var error in errors)
-                    {
-                        Console.WriteLine($"ModelState Error - Key: {key}, Error: {error.ErrorMessage}");
-                    }
-                }
-                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name");
+                // Log errors if needed (your existing code)
+                // ...
+
+                // Repopulate TourId SelectList before returning the Page
+                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name", TourInstance.TourId); // Pass selected value back
                 return Page();
             }
 
-            // Find the Tour and ensure it exists
-            var tour = await _context.Tours.FindAsync(TourInstance.TourId);
+            // Find the selected Tour using the TourId from the bound TourInstance
+            var tour = await _context.Tours.FirstOrDefaultAsync(t => t.Id == TourInstance.TourId); // Use FirstOrDefaultAsync for checking null
             if (tour == null)
             {
                 ModelState.AddModelError("TourInstance.TourId", "Selected Tour does not exist.");
-                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name");
+                ViewData["TourId"] = new SelectList(_context.Tours, "Id", "Name", TourInstance.TourId);
                 return Page();
             }
 
-            // Assign the found Tour
-            TourInstance.Tour = tour;
+            // *** SET MaxCapacity HERE ***
+            TourInstance.MaxCapacity = (int)tour.Capacity; // Set the instance capacity from the tour capacity
+
+            // Now that MaxCapacity is set, you could potentially re-validate if needed,
+            // but typically setting it from a trusted source (the Tour) is sufficient.
+
+            // Assign the Tour navigation property (optional but good practice if needed later)
+            // TourInstance.Tour = tour; // You already have this, which is good.
 
             _context.TourInstances.Add(TourInstance);
             await _context.SaveChangesAsync();

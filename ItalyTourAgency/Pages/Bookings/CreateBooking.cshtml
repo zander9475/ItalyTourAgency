@@ -1,57 +1,131 @@
-@page "/Bookings/CreateBooking"
+@page "/Bookings/CreateBooking/{tourId:int}"
 @model ItalyTourAgency.Pages.Bookings.CreateBookingModel
+@using System.Globalization
 
-        @{
-        ViewData["Title"] = "CreateBooking";
+
+@{
+    ViewData["Title"] = "Create Booking";
+    // Format the date range string for display
+    Func<DateOnly, DateOnly, string> formatDateRange = (start, end) =>
+        start == end ? start.ToString("MMM d, yyyy", CultureInfo.InvariantCulture)
+                     : $"{start:MMM d} - {end:MMM d, yyyy}";
+}
+
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create Booking for @Model.CurrentTour?.Name</title>
+    <style>
+        .date-selection-area {
+            display: flex;
+            gap: 20px; /* Adjust spacing between calendar and list */
         }
-        
-        <!DOCTYPE html>
-        
-        <html>
-        <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Create</title>
-        </head>
-        <body>
-        
-    <h4>Create Booking</h4>
+
+
+        .available-dates-list {
+            max-height: 200px; /* Limit height and add scroll if needed */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+            .available-dates-list ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .available-dates-list li {
+                margin-bottom: 5px;
+            }
+    </style>
+</head>
+<body>
+
+
+    <h4>Create Booking for @Model.CurrentTour?.Name</h4>
     <hr />
     <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-			<input type="hidden" asp-for="Booking.TourId" value="@Model.Booking.TourId" />
-            <input type="hidden" asp-for="Booking.UserId" value="@Model.Booking.UserId"/>
+        <div class="col-md-8">
+            @* Increased width slightly *@
+            <form method="post">
+                @* Pass tourId as a route parameter in the form action *@
+                <input type="hidden" asp-for="Booking.TourId" />
+                <input type="hidden" asp-for="Booking.UserId" />
 
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!-- Tour Instance Selection -->
-            <div class="form-group">
-                <label class="control-label">Choose Tour Dates:</label>
-                <select asp-for="Booking.TourInstanceId" 
-                        class="form-control"
-                        asp-items="ViewBag.TourInstanceId">
-                    <option value="">-- Select Dates --</option>
-                </select>
-                <span asp-validation-for="Booking.TourInstanceId" class="text-danger"></span>
-            </div>
-            <!-- Group Size -->
-            <div class="form-group">
-                <label asp-for="Booking.GroupSize" class="control-label"></label>
-                <input asp-for="Booking.GroupSize" class="form-control" min="1" />
-                <span asp-validation-for="Booking.GroupSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Continue to Payment</button>
-            </div>
-        </form>
+
+                @* Display validation summary for non-property errors *@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <div class="date-selection-area">
+                    @* Date Picker Column *@
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SelectedDate" class="control-label">Select Start Date</label>
+                            <input asp-for="SelectedDate" class="form-control" type="date" />
+                            <span asp-validation-for="SelectedDate" class="text-danger"></span>
+                        </div>
+
+
+                        @* Group Size Input *@
+                        <div class="form-group">
+                            <label asp-for="Booking.GroupSize" class="control-label"></label>
+                            <input asp-for="Booking.GroupSize" class="form-control" type="number" min="1" value="1" /> @* Default to 1 *@
+                            <span asp-validation-for="Booking.GroupSize" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    @* Available Dates List Column *@
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Available Tour Dates</label>
+                            @if (Model.AvailableDateRanges.Any())
+                            {
+                                <div class="available-dates-list">
+                                    <ul>
+                                        @foreach (var (startDate, endDate) in Model.AvailableDateRanges)
+                                        {
+                                            <li>@formatDateRange(startDate, endDate)</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <p>No currently available dates for this tour.</p>
+                            }
+                        </div>
+                    </div>
+                </div> @* End of date-selection-area *@
+
+
+                @* Submit Button *@
+                <div class="form-group mt-3">
+                    @* Added margin-top for spacing *@
+                    <button type="submit" class="btn btn-primary">Continue to Payment</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div>
+        @* Link back to the specific tour's details page *@
+        <a asp-page="/Tours/Details" asp-route-id="@Model.Booking.TourId">Back to Tour Details</a>
+    </div>
+
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 </body>
 </html>
