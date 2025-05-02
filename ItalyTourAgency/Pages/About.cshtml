@@ -14,10 +14,15 @@
                     experiences to travelers worldwide through local expertise and passion. 
                     We offer our guided-tours and services in over 50 cities in the beloved country 
                     of Italy. Our talented and locally experienced guides offer a unique perspective 
-                    and view of the most popular sites in Italy, as well as the hidden gems.</p>
+                    and view of the most popular sites in Italy, as well as the hidden gems. It all started
+                    when Ryan and Zander studied abroad in Florence their sophomore year of college. They were
+                    fully submerged in the culture of Italy. Many eaten pizzas later, the two decided to open
+                    up a tour business that stands out from all of the others. Experience Italia believes tours
+                    should be offered not just in the big cities, but in the small ones too. We provide world-class
+                    perspectives and voices to the newcoming traveler.</p>
             </div>
             <div class="col-lg-6">
-                <img src="~/images/firenze view.jpg" alt="Italian piazza" class="img-fluid rounded shadow">
+                <img src="~/images/best duomo.jpg" alt="Italian piazza" class="img-fluid rounded shadow">
             </div>
         </div>
     </div>
@@ -80,9 +85,86 @@
 </section>
 
 <!-- Mission Section -->
-<section class="py-5 bg-primary text-white">
-    <div class="container text-center">
-        <h2 class="mb-4">Our Mission</h2>
-        <p class="lead mb-0">To connect travelers with authentic Italian experiences through local expertise, sustainable tourism, and personalized service.</p>
+<section class="mission-section py-6 position-relative bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="mission-card p-5 rounded-4 shadow-sm text-center position-relative bg-white">
+                    <!-- Italian Flag Icon -->
+                    <div class="flag-container mb-4 mx-auto">
+                        <div class="italian-flag">
+                            <div class="flag-green"></div>
+                            <div class="flag-white"></div>
+                            <div class="flag-red"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mission Content -->
+                    <h2 class="display-5 fw-bold mb-4">Our Mission</h2>
+                    <p class="mission-statement lead px-lg-5 mx-lg-5 mb-0">
+                        To connect travelers with authentic Italian experiences through local expertise,
+                        sustainable tourism, and personalized service.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<style>
+    .mission-section {
+        background-color: #f8f9fa;
+    }
+
+    .mission-card {
+        border: 1px solid rgba(0,0,0,0.05);
+        background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+    }
+
+    /* Italian Flag Styles */
+    .italian-flag {
+        display: flex;
+        width: 80px;
+        height: 50px;
+        border: 1px solid #dee2e6;
+        overflow: hidden;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .flag-green, .flag-white, .flag-red {
+        flex: 1;
+    }
+
+    .flag-green {
+        background-color: #009246; /* Italian flag green */
+    }
+
+    .flag-white {
+        background-color: #ffffff;
+    }
+
+    .flag-red {
+        background-color: #CE2B37; /* Italian flag red */
+    }
+
+    .flag-container {
+        width: 80px;
+        height: 50px;
+    }
+
+    .mission-statement {
+        font-size: 1.25rem;
+        line-height: 1.6;
+        color: #495057;
+    }
+
+    .py-6 {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+</style>

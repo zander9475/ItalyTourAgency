@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Create a new account.</h2>
+        <h2>Benvenuto! Create an account.</h2>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
@@ -54,3 +54,75 @@
         </form>
     </div>
 </div>
+
+<style>
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background-color: #f8f9fa;
+    }
+
+    .col-md-4 {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    hr {
+        margin: 1.5rem 0;
+        opacity: 0.15;
+    }
+
+    .form-floating {
+        margin-bottom: 1.25rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #4ca1af;
+            box-shadow: 0 0 0 0.25rem rgba(76, 161, 175, 0.25);
+        }
+
+    label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    #registerSubmit {
+        background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+        border: none;
+        padding: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        #registerSubmit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+</style>
