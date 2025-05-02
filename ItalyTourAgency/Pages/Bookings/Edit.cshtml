@@ -1,87 +1,112 @@
 @page
-@model ItalyTourAgency.Pages_Bookings.EditModel
+@model ItalyTourAgency.Pages.Bookings.EditModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Reschedule Booking";
 }
 
-<!DOCTYPE html>
+<div class="container mt-5">
+    <h4>Reschedule Booking</h4>
+    <hr />
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" id="rescheduleForm">
+                <input type="hidden" asp-for="Booking.Id" />
+				<input type="hidden" asp-for="Booking.UserId" />
 
-<h4>Booking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Booking.Id" />
-            <div class="form-group">
-                
-                <label asp-for="Booking.UserId" class="control-label"></label>
-                <select asp-for="Booking.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="Booking.UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Booking.TourInstanceId" class="control-label"></label>
-                <select asp-for="Booking.TourInstanceId" class="form-control" asp-items="ViewBag.TourInstanceId"></select>
-                <span asp-validation-for="Booking.TourInstanceId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Booking.BookingDate" class="control-label"></label>
-                <input asp-for="Booking.BookingDate" class="form-control" />
-                <span asp-validation-for="Booking.BookingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Booking.GroupSize" class="control-label"></label>
-                <input asp-for="Booking.GroupSize" class="form-control" />
-                <span asp-validation-for="Booking.GroupSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Booking.TotalPrice" class="control-label"></label>
-                <input asp-for="Booking.TotalPrice" class="form-control" />
-                <span asp-validation-for="Booking.TotalPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Booking.PaymentDate" class="control-label"></label>
-                <input asp-for="Booking.PaymentDate" class="form-control" />
-                <span asp-validation-for="Booking.PaymentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Booking.Status" class="control-label"></label>
-                <input asp-for="Booking.Status" class="form-control" />
-                <span asp-validation-for="Booking.Status" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Booking.PaymentProcessed" /> @Html.DisplayNameFor(model => model.Booking.PaymentProcessed)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Selected Tour:</label>
+                    <p class="form-control-static">
+                        @(Model.OriginalTourInstance?.Tour?.Name ?? "Tour information not available")
+                    </p>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Current Tour Start Date:</label>
+                    <p class="form-control-static">
+                        @(Model.OriginalTourInstance?.StartDate.ToString("yyyy-MM-dd") ?? "Date not available")
+                    </p>
+                </div>
+
+               <div class="form-group mb-4">
+                    <label asp-for="SelectedDate" class="form-label fw-bold">New Tour Date</label>
+                    <input type="date" asp-for="SelectedDate" class="form-control"
+                           min="2025-05-04" id="datePicker" required />
+                    <span asp-validation-for="SelectedDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirm Reschedule</button>
+                    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h5>Available Date Ranges:</h5>
+            <ul class="list-group">
+                @foreach (var range in Model.AvailableDateRanges)
+                {
+                    <li class="list-group-item">
+                        @range.StartDate.ToString("yyyy-MM-dd") to @range.EndDate.ToString("yyyy-MM-dd")
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+        // Add a div to display the client-side error
+    <div id="dateError" class="text-danger d-none mt-2"></div>
+
+    <script>
+        // Extract start dates for validation
+        const availableStartDates = @Html.Raw(Json.Serialize(
+        Model.AvailableDateRanges.Select(r => r.StartDate.ToString("yyyy-MM-dd"))));
+
+        const datePicker = document.getElementById('datePicker');
+        const errorDiv = document.getElementById('dateError'); // Get the error div
+
+        datePicker.addEventListener('change', function(e) {
+            const selectedDate = e.target.value;
+
+            // Clear previous error message
+            errorDiv.textContent = '';
+            errorDiv.classList.add('d-none');
+
+            // Only validate if a date is actually selected
+            if (selectedDate && !availableStartDates.includes(selectedDate)) {
+                errorDiv.textContent = `Client-side check: No available tours starting on ${selectedDate}. Please select a valid start date from the list.`;
+                errorDiv.classList.remove('d-none');
+                // DO NOT CLEAR THE VALUE: e.target.value = ''; // REMOVED THIS LINE
+            }
+        });
+
+        // Optional: You can enhance the submit validation too, but the core issue
+        // was the clearing in the 'change' event.
+        document.getElementById('rescheduleForm').addEventListener('submit', function(e) {
+            const selectedDate = datePicker.value;
+
+            // Clear previous error message before submit validation
+             errorDiv.textContent = '';
+             errorDiv.classList.add('d-none');
+
+            if (!selectedDate) {
+                 e.preventDefault(); // Prevent submission if no date selected
+                 errorDiv.textContent = "Please select a date before submitting.";
+                 errorDiv.classList.remove('d-none');
+            } else if (!availableStartDates.includes(selectedDate)) {
+                e.preventDefault(); // Prevent submission if the date is known to be invalid client-side
+                errorDiv.textContent = "The selected date is not a valid start date for an available tour.";
+                errorDiv.classList.remove('d-none');
+            }
+             // Allow submission if a date is selected, even if the client-side check failed earlier.
+             // The server will perform the definitive validation.
+        });
+    </script>
 }
-</body>
-</html>

@@ -30,15 +30,18 @@ namespace ItalyTourAgency.Pages_Bookings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                // Handle the case where the user is null, e.g., redirect to an error page or return an empty list
                 Booking = new List<Booking>();
                 return;
             }
 
+            // Force fresh data
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+
             Booking = await _context.Bookings
                 .Include(b => b.TourInstance)
-                .ThenInclude(ti => ti.Tour)
+                    .ThenInclude(ti => ti.Tour)
                 .Where(b => b.UserId == user.Id && b.Status != "Cancelled")
+                .AsNoTracking()  // Add this for fresh data
                 .ToListAsync();
         }
     }
